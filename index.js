@@ -3,6 +3,7 @@ window.onload = () =>{
 
     //generaAleatorios();
     //colorMain();
+    // https://digitalredneck.co.uk/making-a-rgb-colour-guessing-game-in-javascript/
 
 }
 
@@ -48,6 +49,7 @@ for(var i=0 ; i<squares.length ; i++){
 var colorEscogido = colores[3];
 var solucion = document.querySelectorAll("#solucion");
 
+document.getElementById("solucion").innerHTML = colorEscogido;
 
 
 
