@@ -1,55 +1,58 @@
+// DECLARACIÓN DE VARIABLES GLOBALES 
+const colorJuego = document.querySelector('#color-juego');
+const btnNuevoJuego = document.querySelector('#nuevo-juego');
+const btnDificultadJuego = document.querySelector('#nivel-juego');
+
 window.onload = () =>{
     console.log("La página se ha cargado con éxito.");
 
-    //generaAleatorios();
-    //colorMain();
-   
+     // EVENT LISTENERS
+
+  btnNewGame.addEventListener('click', function () {
+    // PARA ARRANCAR EL JUEGO
+    function empezarJuego(dificultad) {
+      const coloresJuego = generadorColor(dificultad);
+      console.log(coloresJuego);
+    }
+    empezarJuego(3);
+
+  })
+
+  btnGameLevel.addEventListener('click', function () {
+    
+  })
+
 
 }
 
-
-/* function generaAleatorios(){
-    const titulo = document.getElementById("titulo");
-
-    titulo.addEventListener("click", (event) =>{
-        let arrayNumeros = [];
-
-        for (var i = 0; i < 3; i++) {
-          arrayNumeros.push(Math.floor(Math.random()*1000));
-        }
-        event.target.style.bacgroundColor = titulo;
-        //alert(arrayNumeros)
-    })
-   
-    
-}
-
-function colorMain() {
-    var main = document.getElementById("main");
-    main.style.backgroundColor = "grey";
-    } */
-
-
-    
 // GENERA ARRAY CON COLORES RGB ALEATORIOS
-var colores = []
-for (var i = 0; i < 3; i++) {
-    colores.push(Math.floor(Math.random()*255));
+function generadorColor(dificultad) {
+    let color = [];
+  
+    for (let i = 0; i < dificultad; i++) {
+      let r = Math.floor(Math.random() * 255);
+      let g = Math.floor(Math.random() * 255);
+      let b = Math.floor(Math.random() * 255);
+  
+      color.push(`rgb(${r},${g},${b})`);
+    }
+  
+    return color;
   }
 
 
 // ASIGNA A LOS CUADRADOS UN COLOR RGB ALEATORIO
-var cuadrados = document.querySelectorAll(".container");
+var cuadrados = document.querySelectorAll(".cuadrado");
 
 for(var i=0 ; i<squares.length ; i++){
     cuadrados[i].style.backgroundColor = colores[i];
 }
 
 // GENERA UNA SOLUCIÓN ALEATORIA
-var colorEscogido = colores[3];
-var solucion = document.querySelectorAll("#solucion");
+var colorEscogido = generadorColor();
+var solucion = document.querySelectorAll("#color-juego");
 
-document.getElementById("solucion").innerHTML = colorEscogido;
+document.getElementById("#color-juego").innerHTML = colorEscogido;
 
 
 
