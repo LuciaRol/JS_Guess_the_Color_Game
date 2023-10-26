@@ -3,7 +3,7 @@ window.onload = () =>{
 
     //generaAleatorios();
     //colorMain();
-    // https://digitalredneck.co.uk/making-a-rgb-colour-guessing-game-in-javascript/
+   
 
 }
 
