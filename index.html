@@ -1,40 +1,42 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Color Game</title>
-    <script src="index.js"></script>
-    <link rel="stylesheet" href="./styles.css">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juego selección colores</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
 <body>
 
-    <header>
-      <h1>The Great Guess Color Game</h1>
-      <span id="color-juego">rgb(244,69,68)</span>
-    </header>
-  
-    <div>
-      <button id="nuevo-juego">
-        New colors
-      </button>
-  
-      <button id="nivel-dificultad">
-        Difficulty
-      </button>
-  
-      <span>
-        Correct!
-      </span>
-    </div>
-  
-    <main class="contenedor-color" id="main">
-      <div id="color-1" class="cuadrado">
-      </div>
-  
-      <div id="color-2" class="cuadrado">
-      </div>
+  <header>
+    <h1>El gran juego de los Colores</h1>
+    <span id="color-juego"></span>
+  </header>
 
-    </main>
-  </body>
-  </html>
+  <div class="game-selectors">
+    <button id="nuevo-juego">
+      Generar
+    </button>
+
+    <div id="nivel-juego">
+      <button id="nivel-juego-facil" class="active-level" value="3" >
+        Fácil
+      </button>
+      <button id="nivel-juego-dificil" value="6">
+        Dificil
+      </button>
+    </div>
+    
+    <span id="feedback-resultado"></span>
+  </div>
+
+  <main class="colors-container">
+    <div class="container" id="colors-container">
+
+    </div>
+  </main>
+  
+
+  <script type="module" src="./index.js"></script>
+</body>
+</html>

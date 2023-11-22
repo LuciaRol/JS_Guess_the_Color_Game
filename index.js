@@ -1,72 +1,103 @@
-// DECLARACIÓN DE VARIABLES GLOBALES 
-const colorJuego = document.querySelector('#color-juego');
-const btnNuevoJuego = document.querySelector('#nuevo-juego');
-const btnDificultadJuego = document.querySelector('#nivel-juego');
+// Importar funciones
+import { colorGenerator, limpiarHTML } from './helpers.js';
 
-window.onload = () =>{
-    console.log("La página se ha cargado con éxito.");
+// Variables Globales
+const btnNewGame = document.querySelector('#nuevo-juego');
+const btnLevelEasy = document.querySelector('#nivel-juego-facil');
+const btnLevelHard = document.querySelector('#nivel-juego-dificil');
 
-     // EVENT LISTENERS
+document.addEventListener('DOMContentLoaded', () => {
+  // Pordefecto el juego comienza en nivel facil
+  let level = 3;
 
-  btnNewGame.addEventListener('click', function () {
-    // PARA ARRANCAR EL JUEGO
-    function empezarJuego(dificultad) {
-      const coloresJuego = generadorColor(dificultad);
-      console.log(coloresJuego);
+  btnLevelEasy.addEventListener('click', (e) => {
+    e.target.classList.add('active-level');
+    btnLevelHard.classList.remove('active-level');
+    level = 3;
+  });
+
+  btnLevelHard.addEventListener('click', (e) => {
+    e.target.classList.add('active-level');
+    btnLevelEasy.classList.remove('active-level');
+    level = 6;
+  });
+
+  // Event listeners
+  btnNewGame.addEventListener('click', () => {
+
+    // Resetear el juego
+    limpiarHTML();
+
+    // Comprobar nivel juego
+    if (level === undefined) {
+      level = 3;
     }
-    empezarJuego(3);
 
+    // Arrancar el nuevo juego
+    const coloresJuego = startGame(level);
+
+    // Crear los contenedores de colores
+    createColorElements(coloresJuego);
+
+    // Una vez creados los colores al comenzar juego, seteamos un listener
+    const colorDiv = document.querySelectorAll('.colorDiv');
+    colorDiv.forEach(div => {
+      div.addEventListener('click', () => {
+        const colorJuego = document.querySelector('#color-juego');
+
+        // Al hacer click, comprobar si el color es correcto
+        const feedback = checkColor(div.style.backgroundColor, colorJuego.textContent);
+
+        // Checkear si el resultado es correcto o no
+        if (feedback === false) {
+          // Eliminar el contenedor incorrecto con javascript -> div.remove();
+          // Eliminar el contenedor incorrecto con CSS y mantenerlo en su lugar -> div.style.opacity = '0';
+          // Eliminar el contenedor incorrecto con CSS y quitarlo de su lugar -> div.style.display = 'none';
+        }
+        /*
+          condicion de que si es false, el contenedor debe desaparecer
+        */
+      })
+    })
   })
+})
 
-  btnGameLevel.addEventListener('click', function () {
-    
-  })
+// Funciones del juego
+function startGame(dificultad) {
+  // Generar colores
+  const gameColors = colorGenerator(dificultad);
 
+  // Generar el color de la solución
+  const numSolucion = Math.floor(Math.random() * dificultad);
+  const solucion = gameColors[numSolucion]
+  // Imprimir en el HTML el valor de la solución
+  const solucionHTML = document.querySelector('#color-juego')
+  solucionHTML.textContent = solucion;
 
+  return gameColors;
 }
 
-// GENERA ARRAY CON COLORES RGB ALEATORIOS
-function generadorColor(dificultad) {
-    let color = [];
-  
-    for (let i = 0; i < dificultad; i++) {
-      let r = Math.floor(Math.random() * 255);
-      let g = Math.floor(Math.random() * 255);
-      let b = Math.floor(Math.random() * 255);
-  
-      color.push(`rgb(${r},${g},${b})`);
-    }
-  
-    return color;
+function createColorElements(colores) {
+  const colorContainer = document.getElementById('colors-container');
+
+  colores.forEach((color) => {
+    const div = document.createElement('DIV');
+    div.classList.add('colorDiv');
+    div.style.backgroundColor = color;
+
+    colorContainer.appendChild(div);
+  });
+}
+
+function checkColor(color, colorSolucion) {
+  const feedback = document.querySelector('#feedback-resultado');
+  let respuesta;
+  if (color === colorSolucion) {
+    feedback.textContent = 'Correcto!'
+    respuesta = true;
+  } else {
+    feedback.textContent = 'Incorrecto!'
+    respuesta = false;
   }
-
-
-// ASIGNA A LOS CUADRADOS UN COLOR RGB ALEATORIO
-var cuadrados = document.querySelectorAll(".cuadrado");
-
-for(var i=0 ; i<squares.length ; i++){
-    cuadrados[i].style.backgroundColor = colores[i];
+  return respuesta;
 }
-
-// GENERA UNA SOLUCIÓN ALEATORIA
-var colorEscogido = generadorColor();
-var solucion = document.querySelectorAll("#color-juego");
-
-document.getElementById("#color-juego").innerHTML = colorEscogido;
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
